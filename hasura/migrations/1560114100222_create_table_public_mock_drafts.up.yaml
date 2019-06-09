@@ -1,0 +1,13 @@
+- args:
+    sql: CREATE EXTENSION IF NOT EXISTS pgcrypto;
+  type: run_sql
+- args:
+    sql: CREATE TABLE "public"."mock_drafts"("id" uuid NOT NULL DEFAULT gen_random_uuid(),
+      "participant_id" uuid NOT NULL, "name" text NOT NULL, PRIMARY KEY ("id") , FOREIGN
+      KEY ("participant_id") REFERENCES "public"."participants"("id") ON UPDATE cascade
+      ON DELETE cascade, UNIQUE ("id"));
+  type: run_sql
+- args:
+    name: mock_drafts
+    schema: public
+  type: add_existing_table_or_view
